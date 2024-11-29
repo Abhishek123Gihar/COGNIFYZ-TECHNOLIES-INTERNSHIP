@@ -1,0 +1,113 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+void introduction();
+void forestPath();
+void cavePath();
+void lakePath();
+
+int main() {
+    introduction();
+    return 0;
+}
+
+// Game introduction
+void introduction() {
+    cout << "\n=== Welcome to the Adventure Game! ===\n";
+    cout << "You are an explorer on a quest to find a hidden treasure.\n";
+    cout << "Your journey begins at a fork in the road.\n";
+    cout << "Choose your path:\n";
+    cout << "1. Take the forest path\n";
+    cout << "2. Enter the dark cave\n";
+    cout << "3. Walk toward the shimmering lake\n";
+
+    int choice;
+    cout << "Enter your choice (1-3): ";
+    cin >> choice;
+
+    switch (choice) {
+        case 1:
+            forestPath();
+            break;
+        case 2:
+            cavePath();
+            break;
+        case 3:
+            lakePath();
+            break;
+        default:
+            cout << "Invalid choice. The adventure ends here.\n";
+    }
+}
+
+// Forest path storyline
+void forestPath() {
+    cout << "\nYou walk along the forest path and hear rustling in the bushes.\n";
+    cout << "Suddenly, a wild animal jumps out!\n";
+    cout << "What do you do?\n";
+    cout << "1. Run away\n";
+    cout << "2. Fight the animal\n";
+
+    int choice;
+    cout << "Enter your choice (1-2): ";
+    cin >> choice;
+
+    if (choice == 1) {
+        cout << "You run as fast as you can and safely escape the forest.\n";
+        cout << "However, the treasure remains hidden. The adventure ends here.\n";
+    } else if (choice == 2) {
+        cout << "You bravely fight the animal and defeat it!\n";
+        cout << "Behind the bushes, you find a map leading to the treasure!\n";
+        cout << "Congratulations, you've won the game!\n";
+    } else {
+        cout << "Invalid choice. The animal attacks, and the adventure ends here.\n";
+    }
+}
+
+// Cave path storyline
+void cavePath() {
+    cout << "\nYou enter the dark cave and see a glimmer of light deeper inside.\n";
+    cout << "As you approach, you find a chest, but it is guarded by a sleeping dragon.\n";
+    cout << "What do you do?\n";
+    cout << "1. Sneak past the dragon\n";
+    cout << "2. Wake the dragon and fight it\n";
+
+    int choice;
+    cout << "Enter your choice (1-2): ";
+    cin >> choice;
+
+    if (choice == 1) {
+        cout << "You sneak past the dragon and open the chest.\n";
+        cout << "Inside, you find the hidden treasure. Congratulations, you've won the game!\n";
+    } else if (choice == 2) {
+        cout << "The dragon wakes up and breathes fire at you.\n";
+        cout << "You are unable to defeat it, and the adventure ends here.\n";
+    } else {
+        cout << "Invalid choice. The dragon wakes up, and the adventure ends here.\n";
+    }
+}
+
+// Lake path storyline
+void lakePath() {
+    cout << "\nYou walk toward the shimmering lake and see a boat tied to a dock.\n";
+    cout << "On the other side of the lake, you spot a small island with a golden statue.\n";
+    cout << "What do you do?\n";
+    cout << "1. Take the boat to the island\n";
+    cout << "2. Swim across the lake\n";
+
+    int choice;
+    cout << "Enter your choice (1-2): ";
+    cin >> choice;
+
+    if (choice == 1) {
+        cout << "You take the boat and safely reach the island.\n";
+        cout << "The golden statue reveals a hidden compartment with the treasure inside!\n";
+        cout << "Congratulations, you've won the game!\n";
+    } else if (choice == 2) {
+        cout << "You try to swim across the lake, but the waters are too cold.\n";
+        cout << "You return to the shore, and the adventure ends here.\n";
+    } else {
+        cout << "Invalid choice. The boat floats away, and the adventure ends here.\n";
+    }
+}
