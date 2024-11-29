@@ -1,0 +1,126 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+// Task structure
+struct Task {
+    int id;
+    string description;
+};
+
+// Function prototypes
+void addTask(vector<Task>& tasks, int& taskId);
+void displayTasks(const vector<Task>& tasks);
+void updateTask(vector<Task>& tasks);
+void deleteTask(vector<Task>& tasks);
+
+int main() {
+    vector<Task> tasks;
+    int taskId = 1; // Auto-incrementing task ID
+    int choice;
+
+    do {
+        // Menu
+        cout << "\n=== Task Management System ===\n";
+        cout << "1. Add Task\n";
+        cout << "2. Display Tasks\n";
+        cout << "3. Update Task\n";
+        cout << "4. Delete Task\n";
+        cout << "5. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        // Handle menu choices
+        switch (choice) {
+            case 1:
+                addTask(tasks, taskId);
+                break;
+            case 2:
+                displayTasks(tasks);
+                break;
+            case 3:
+                updateTask(tasks);
+                break;
+            case 4:
+                deleteTask(tasks);
+                break;
+            case 5:
+                cout << "Exiting the program...\n";
+                break;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+    } while (choice != 5);
+
+    return 0;
+}
+
+// Function to add a task
+void addTask(vector<Task>& tasks, int& taskId) {
+    Task newTask;
+    newTask.id = taskId++;
+    cout << "Enter task description: ";
+    cin.ignore(); // Clear input buffer
+    getline(cin, newTask.description);
+    tasks.push_back(newTask);
+    cout << "Task added successfully!\n";
+}
+
+// Function to display all tasks
+void displayTasks(const vector<Task>& tasks) {
+    if (tasks.empty()) {
+        cout << "No tasks to display.\n";
+        return;
+    }
+    cout << "\n=== Task List ===\n";
+    cout << left << setw(5) << "ID" << "Description\n";
+    cout << "-----------------------------\n";
+    for (const auto& task : tasks) {
+        cout << left << setw(5) << task.id << task.description << "\n";
+    }
+}
+
+// Function to update a task
+void updateTask(vector<Task>& tasks) {
+    if (tasks.empty()) {
+        cout << "No tasks available to update.\n";
+        return;
+    }
+    int id;
+    cout << "Enter task ID to update: ";
+    cin >> id;
+
+    for (auto& task : tasks) {
+        if (task.id == id) {
+            cout << "Enter new description: ";
+            cin.ignore(); // Clear input buffer
+            getline(cin, task.description);
+            cout << "Task updated successfully!\n";
+            return;
+        }
+    }
+    cout << "Task with ID " << id << " not found.\n";
+}
+
+// Function to delete a task
+void deleteTask(vector<Task>& tasks) {
+    if (tasks.empty()) {
+        cout << "No tasks available to delete.\n";
+        return;
+    }
+    int id;
+    cout << "Enter task ID to delete: ";
+    cin >> id;
+
+    for (auto it = tasks.begin(); it != tasks.end(); ++it) {
+        if (it->id == id) {
+            tasks.erase(it);
+            cout << "Task deleted successfully!\n";
+            return;
+        }
+    }
+    cout << "Task with ID " << id << " not found.\n";
+}
