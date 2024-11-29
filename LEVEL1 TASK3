@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int rows;
+
+    // Ask the user for the number of rows
+    cout << "Enter the number of rows for the pattern: ";
+    cin >> rows;
+
+    // Generate the number pattern
+    for (int i = 1; i <= rows; ++i) {
+        // Print leading spaces for alignment
+        for (int space = 1; space <= rows - i; ++space) {
+            cout << " ";
+        }
+
+        // Print numbers in the row
+        for (int j = 1; j <= i; ++j) {
+            cout << j << " ";
+        }
+
+        // Move to the next line
+        cout << endl;
+    }
+
+    return 0;
+}
