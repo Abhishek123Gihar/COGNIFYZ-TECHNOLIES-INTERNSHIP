@@ -1,0 +1,90 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+// Function prototypes
+void celsiusToFahrenheitAndKelvin();
+void fahrenheitToCelsiusAndKelvin();
+void kelvinToCelsiusAndFahrenheit();
+
+int main() {
+    int choice;
+
+    do {
+        // Menu
+        cout << "\n=== Temperature Converter ===\n";
+        cout << "1. Convert Celsius to Fahrenheit and Kelvin\n";
+        cout << "2. Convert Fahrenheit to Celsius and Kelvin\n";
+        cout << "3. Convert Kelvin to Celsius and Fahrenheit\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        // Handle menu choices
+        switch (choice) {
+            case 1:
+                celsiusToFahrenheitAndKelvin();
+                break;
+            case 2:
+                fahrenheitToCelsiusAndKelvin();
+                break;
+            case 3:
+                kelvinToCelsiusAndFahrenheit();
+                break;
+            case 4:
+                cout << "Exiting the program...\n";
+                break;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
+
+// Convert Celsius to Fahrenheit and Kelvin
+void celsiusToFahrenheitAndKelvin() {
+    double celsius;
+    cout << "Enter temperature in Celsius: ";
+    cin >> celsius;
+
+    double fahrenheit = (celsius * 9/5) + 32;
+    double kelvin = celsius + 273.15;
+
+    cout << fixed << setprecision(2);
+    cout << celsius << "°C = " << fahrenheit << "°F\n";
+    cout << celsius << "°C = " << kelvin << "K\n";
+}
+
+// Convert Fahrenheit to Celsius and Kelvin
+void fahrenheitToCelsiusAndKelvin() {
+    double fahrenheit;
+    cout << "Enter temperature in Fahrenheit: ";
+    cin >> fahrenheit;
+
+    double celsius = (fahrenheit - 32) * 5/9;
+    double kelvin = celsius + 273.15;
+
+    cout << fixed << setprecision(2);
+    cout << fahrenheit << "°F = " << celsius << "°C\n";
+    cout << fahrenheit << "°F = " << kelvin << "K\n";
+}
+
+// Convert Kelvin to Celsius and Fahrenheit
+void kelvinToCelsiusAndFahrenheit() {
+    double kelvin;
+    cout << "Enter temperature in Kelvin: ";
+    cin >> kelvin;
+
+    if (kelvin < 0) {
+        cout << "Invalid temperature. Kelvin cannot be negative.\n";
+        return;
+    }
+
+    double celsius = kelvin - 273.15;
+    double fahrenheit = (celsius * 9/5) + 32;
+
+    cout << fixed << setprecision(2);
+    cout << kelvin << "K = " << celsius << "°C\n";
+    cout << kelvin << "K = " << fahrenheit << "°F\n";
+}
