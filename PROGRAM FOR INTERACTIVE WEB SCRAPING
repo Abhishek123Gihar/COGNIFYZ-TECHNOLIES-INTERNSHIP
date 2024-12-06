@@ -1,0 +1,44 @@
+import requests
+from bs4 import BeautifulSoup
+
+def fetch_html(url):
+    """Fetch the HTML content of a webpage."""
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.text
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching URL: {e}")
+        return None
+
+def parse_html(html, tag, class_name):
+    """Parse HTML and extract data based on tag and class name."""
+    soup = BeautifulSoup(html, 'html.parser')
+    elements = soup.find_all(tag, class_=class_name)
+    return [element.get_text(strip=True) for element in elements]
+
+def display_data(data):
+    """Display the extracted data in a user-friendly way."""
+    print("\nExtracted Data:")
+    for i, item in enumerate(data, 1):
+        print(f"{i}. {item}")
+
+def main():
+    print("Interactive Web Scraping Program")
+    url = input("Enter the URL to scrape: ").strip()
+    tag = input("Enter the HTML tag to extract (e.g., h2, p, div): ").strip()
+    class_name = input("Enter the class name of the elements (leave blank if not applicable): ").strip()
+
+    print("\nFetching data from the website...")
+    html = fetch_html(url)
+    if html:
+        data = parse_html(html, tag, class_name if class_name else None)
+        if data:
+            display_data(data)
+        else:
+            print("No data found matching the given criteria.")
+    else:
+        print("Failed to fetch or parse the webpage.")
+
+if __name__ == "__main__":
+    main()
