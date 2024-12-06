@@ -1,0 +1,114 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <sstream>
+using namespace std;
+
+// Structure to hold task data
+struct Task {
+    int id;
+    string description;
+    string status;
+};
+
+// Function to load tasks from the file
+vector<Task> loadTasks(const string &filename) {
+    vector<Task> tasks;
+    ifstream file(filename);
+    string line;
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+        Task task;
+        string id, desc, stat;
+
+        getline(ss, id, '|');
+        getline(ss, desc, '|');
+        getline(ss, stat);
+
+        task.id = stoi(id);
+        task.description = desc;
+        task.status = stat;
+        tasks.push_back(task);
+    }
+
+    file.close();
+    return tasks;
+}
+
+// Function to save tasks to the file
+void saveTasks(const vector<Task> &tasks, const string &filename) {
+    ofstream file(filename, ios::trunc);
+
+    for (const auto &task : tasks) {
+        file << task.id << "|" << task.description << "|" << task.status << endl;
+    }
+
+    file.close();
+}
+
+// Display all tasks
+void displayTasks(const vector<Task> &tasks) {
+    cout << "Tasks:\n";
+    for (const auto &task : tasks) {
+        cout << task.id << ". " << task.description << " [" << task.status << "]\n";
+    }
+}
+
+// Add a new task
+void addTask(vector<Task> &tasks, const string &filename) {
+    Task newTask;
+    newTask.id = tasks.empty() ? 1 : tasks.back().id + 1;
+    cout << "Enter task description: ";
+    cin.ignore();
+    getline(cin, newTask.description);
+    newTask.status = "Pending";
+
+    tasks.push_back(newTask);
+    saveTasks(tasks, filename);
+    cout << "Task added successfully!\n";
+}
+
+// Delete a task
+void deleteTask(vector<Task> &tasks, const string &filename) {
+    int id;
+    cout << "Enter task ID to delete: ";
+    cin >> id;
+
+    tasks.erase(remove_if(tasks.begin(), tasks.end(),
+                          [id](const Task &task) { return task.id == id; }),
+                tasks.end());
+
+    saveTasks(tasks, filename);
+    cout << "Task deleted successfully!\n";
+}
+
+int main() {
+    const string filename = "tasks.txt";
+    vector<Task> tasks = loadTasks(filename);
+    int choice;
+
+    do {
+        cout << "\n1. Display Tasks\n2. Add Task\n3. Delete Task\n4. Exit\nEnter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            displayTasks(tasks);
+            break;
+        case 2:
+            addTask(tasks, filename);
+            break;
+        case 3:
+            deleteTask(tasks, filename);
+            break;
+        case 4:
+            cout << "Exiting...\n";
+            break;
+        default:
+            cout << "Invalid choice! Try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
